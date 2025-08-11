@@ -1,221 +1,424 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dream Weavers Secrets</title>
-  <meta name="theme-color" content="#0f766e">
-  <style>
-    :root{ --green:#0f766e; --sand:#e9d8a6 }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;background:linear-gradient(#fff,#f8fafc)}
-    header{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(6px);background:rgba(255,255,255,.85);border-bottom:1px solid #e2e8f0;z-index:40}
-    .wrap{max-width:1100px;margin:0 auto;padding:12px 16px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{height:40px;width:40px;border-radius:14px;background:linear-gradient(135deg,var(--green),#d4a373);display:grid;place-items:center;overflow:hidden}
-    .logo img{height:28px;width:28px}
-    h1{font-size:20px;margin:0;font-weight:800;letter-spacing:.3px}
-    .blurb{color:#475569;font-size:12px}
-    .hero{background:linear-gradient(90deg,#ecfdf5,#fff7ed);border-bottom:1px solid #e2e8f0}
-    .hero h2{font-size:28px;margin:6px 0 0;font-weight:900}
-    .hero p{color:#334155;margin:8px 0 0}
-    .btn{display:inline-block;border-radius:12px;padding:10px 14px;border:1px solid #0f766e;background:#0f766e;color:#fff;font-weight:600;text-decoration:none}
-    .btn.outline{background:transparent;color:#0f766e}
-    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:14px}
-    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{border:1px solid #e2e8f0;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 1px 6px rgba(16,24,40,.04)}
-    .card img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f1f5f9}
-    .card .p{padding:12px}
-    .tag{font-size:11px;background:#f1f5f9;border-radius:10px;padding:3px 8px;color:#334155;text-transform:capitalize}
-    .title{font-weight:600;margin-top:4px}
-    .seller{color:#64748b;font-size:12px}
-    .price{font-weight:700}
-    .row{display:flex;justify-content:space-between;align-items:center}
-    .footer{border-top:1px solid #e2e8f0;margin-top:30px}
-    .note{color:#475569;font-size:13px}
-    .search{width:100%;padding:9px 12px;border:1px solid #cbd5e1;border-radius:12px}
-    .select{padding:9px 12px;border:1px solid #cbd5e1;border-radius:12px;background:#fff}
-    nav.quick{position:sticky;bottom:0;background:rgba(255,255,255,.95);border-top:1px solid #e2e8f0;padding:10px 0}
-    nav.quick .wrap{display:flex;justify-content:space-around}
-    nav.quick a{color:#0f766e;font-weight:700;text-decoration:none}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dream Weavers Secrets</title>
+<meta name="theme-color" content="#0f766e" />
+<style>
+  :root{ --green:#0f766e; --amber:#d4a373; --ink:#0b3d3a }
+  *{ box-sizing:border-box }
+  body{ margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu; background:linear-gradient(#fff,#f8fafc) }
+  header{ position:sticky; top:0; z-index:40; background:rgba(255,255,255,.85); backdrop-filter:saturate(1.1) blur(6px); border-bottom:1px solid #e2e8f0 }
+  .wrap{ max-width:1100px; margin:0 auto; padding:12px 16px }
+  .brand{ display:flex; align-items:center; gap:12px }
+  .logo{ height:40px; width:40px; border-radius:14px; background:linear-gradient(135deg,var(--green),var(--amber)); display:grid; place-items:center; color:#fff; font-weight:900 }
+  h1{ margin:0; font-size:20px; font-weight:800; letter-spacing:.3px }
+  .blurb{ color:#475569; font-size:12px }
+  .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap }
+  .btn{ border:1px solid var(--green); background:var(--green); color:#fff; padding:10px 14px; border-radius:12px; font-weight:600; text-decoration:none; cursor:pointer }
+  .btn.secondary{ background:#fff; color:var(--green) }
+  .btn.ghost{ background:#fff; color:#0f172a; border-color:#cbd5e1 }
+  .input, .select, textarea{ width:100%; padding:9px 12px; border:1px solid #cbd5e1; border-radius:12px; font:inherit; }
+  .hero{ background:linear-gradient(90deg,#ecfdf5,#fff7ed); border-bottom:1px solid #e2e8f0 }
+  .hero h2{ font-size:28px; margin:6px 0 0; font-weight:900 }
+  .hero p{ color:#334155; margin:8px 0 0 }
+  .toolbar{ gap:8px; margin-left:auto }
+  .pill{ font-size:11px; background:#f1f5f9; border-radius:10px; padding:3px 8px; color:#334155; text-transform:capitalize }
+  .grid{ display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:14px }
+  @media(min-width:640px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+  @media(min-width:960px){ .grid{ grid-template-columns:repeat(3,1fr) } }
+  .card{ border:1px solid #e2e8f0; border-radius:16px; background:#fff; overflow:hidden; box-shadow:0 1px 6px rgba(16,24,40,.04) }
+  .card img{ width:100%; aspect-ratio:4/3; object-fit:cover; background:#f1f5f9 }
+  .p{ padding:12px }
+  .price{ font-weight:800 }
+  .meta{ color:#64748b; font-size:12px }
+  .actions{ display:flex; gap:8px; flex-wrap:wrap }
+  .note{ color:#475569; font-size:13px }
+  .bar{ position:sticky; bottom:0; background:rgba(255,255,255,.95); border-top:1px solid #e2e8f0; padding:10px 0 }
+  dialog[open]{ border:none; border-radius:16px; padding:0; width:min(620px,96vw); }
+  .dlg{ padding:16px; }
+  .dlg h3{ margin:0 0 8px; font-size:18px }
+  .two{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
+  @media(max-width:520px){ .two{ grid-template-columns:1fr } }
+  .tag{ background:#ecfeff; color:#026669; padding:2px 8px; border-radius:999px; font-size:11px; }
+  .draft{ background:#fff0f0; color:#9b1c1c }
+  .toast{ position:fixed; left:50%; transform:translateX(-50%); bottom:20px; background:#0f766e; color:#fff; padding:10px 14px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,.1); font-weight:600 }
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap" style="display:flex;align-items:center;gap:12px">
-      <div class="brand">
-        <div class="logo"><img src="assets/logo.svg" alt="logo"></div>
-        <div>
-          <h1>Dream Weavers Secrets</h1>
-          <div class="blurb">Nature-based, esoteric, handcrafted goods</div>
-        </div>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-        <a href="#sell" class="btn">＋ List an item</a>
+<header>
+  <div class="wrap row">
+    <div class="brand">
+      <div class="logo">🌿</div>
+      <div>
+        <h1 id="siteTitle">Dream Weavers Secrets</h1>
+        <div class="blurb" id="siteTagline">Nature-based, esoteric, handcrafted goods</div>
       </div>
     </div>
-  </header>
-
-  <section class="hero">
-    <div class="wrap">
-      <h2>Sell handcrafted pieces with ease</h2>
-      <p>Upload photos, write a short description, and share your link. This demo saves data to your device only.</p>
-      <div class="controls">
-        <a href="#shop" class="btn">Browse</a>
-        <a href="#how" class="btn outline">How it works</a>
-      </div>
+    <div class="row toolbar">
+      <button class="btn secondary" onclick="openSell()">＋ List an item</button>
+      <button class="btn ghost" id="editToggle" onclick="toggleEdit()">Edit</button>
+      <button class="btn ghost hidden" id="settingsBtn" onclick="openSettings()">Settings</button>
     </div>
-  </section>
+  </div>
+</header>
 
-  <main id="shop" class="wrap" style="padding-top:18px">
-    <div class="row" style="gap:10px;flex-wrap:wrap">
-      <input class="search" id="q" placeholder="Search art, jewelry, sellers…">
-      <select class="select" id="sort">
-        <option value="featured">Featured</option>
-        <option value="priceAsc">Price ↑</option>
-        <option value="priceDesc">Price ↓</option>
-        <option value="az">A→Z</option>
-      </select>
+<section class="hero">
+  <div class="wrap">
+    <h2 id="heroTitle">Sell handcrafted pieces with ease</h2>
+    <p id="heroSubtitle">Upload photos, write a short description, and share your link. This demo saves data to your device only.</p>
+    <div class="row" style="margin-top:10px">
+      <a href="#shop" class="btn">Browse</a>
+      <a href="#how" class="btn secondary">How it works</a>
     </div>
+  </div>
+</section>
 
-    <div class="row" style="gap:10px;margin:10px 0 6px">
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="select" onclick="setCat('all')">All</button>
-        <button class="select" onclick="setCat('jewelry')">Jewelry</button>
-        <button class="select" onclick="setCat('art')">Art</button>
-      </div>
-      <div style="font-size:12px;color:#475569">Demo mode • items saved to your browser</div>
-    </div>
-
-    <div id="grid" class="grid"></div>
-
-    <section id="how" class="footer wrap" style="padding:18px 0">
-      <h3>How to accept payments</h3>
-      <p class="note">When you want to go live, give each product a Stripe Payment Link. Paste that link as the product “Buy” URL.</p>
-      <h3>Data</h3>
-      <p class="note">This demo stores items locally on your device. To share with others, deploy the site and later wire up a database.</p>
-    </section>
-  </main>
-
-  <nav class="quick">
-    <div class="wrap">
-      <a href="#shop">Home</a>
-      <a href="#sell" onclick="openSell()">Sell</a>
-      <a href="#cart" onclick="alert('Cart is demo-only in this static version.')">Cart</a>
-    </div>
-  </nav>
-
-  <!-- Sell dialog -->
-  <div id="sell" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;align-items:center;justify-content:center;padding:16px">
-    <div style="background:#fff;border-radius:16px;max-width:560px;width:100%;padding:16px">
-      <div style="font-weight:700;font-size:18px;margin-bottom:8px">List a new item</div>
-      <form id="sellForm">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <label>Title<input name="title" required class="search" placeholder="Quartz Drop Necklace"></label>
-          <label>Price (USD)<input name="price" required type="number" min="0" step="0.01" class="search" placeholder="49"></label>
-          <label>Category
-            <select name="category" class="select">
-              <option value="jewelry">Jewelry</option>
-              <option value="art">Art</option>
-            </select>
-          </label>
-          <label>Seller<input name="seller" required class="search" placeholder="Your shop name"></label>
-          <label style="grid-column:1/-1">Description<textarea name="description" rows="3" class="search" placeholder="Short description"></textarea></label>
-          <label style="grid-column:1/-1">Image URL<input name="image" class="search" placeholder="Paste an image URL"></label>
-          <label style="grid-column:1/-1">Buy URL (Stripe link)<input name="buy" class="search" placeholder="https://buy.stripe.com/..."></label>
-        </div>
-        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
-          <button type="button" class="select" onclick="closeSell()">Cancel</button>
-          <button class="btn">Add item</button>
-        </div>
-      </form>
+<main id="shop" class="wrap" style="padding-top:18px">
+  <div class="row" style="gap:10px; flex-wrap:wrap">
+    <input class="input" id="q" placeholder="Search art, jewelry, sellers, tags…">
+    <select class="select" id="sort">
+      <option value="featured">Featured</option>
+      <option value="priceAsc">Price ↑</option>
+      <option value="priceDesc">Price ↓</option>
+      <option value="az">A→Z</option>
+      <option value="newest">Newest</option>
+    </select>
+    <div class="row" style="margin-left:auto">
+      <button class="btn ghost" onclick="exportData()">Export</button>
+      <label class="btn ghost" style="position:relative; overflow:hidden">
+        Import
+        <input type="file" accept="application/json" onchange="importData(this.files[0])" style="position:absolute; inset:0; opacity:0">
+      </label>
     </div>
   </div>
 
+  <div class="row" style="gap:8px; margin:10px 0 6px">
+    <button class="select" onclick="setCat('all')">All</button>
+    <button class="select" onclick="setCat('jewelry')">Jewelry</button>
+    <button class="select" onclick="setCat('art')">Art</button>
+    <span class="note">Demo mode • items saved on this device</span>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <section id="how" class="wrap" style="padding:18px 0; border-top:1px solid #e2e8f0; margin-top:24px">
+    <h3>Checkout & trust</h3>
+    <p class="note" id="trustLine">Secure checkout by Stripe • Ships in 3–5 days • Easy returns</p>
+  </section>
+</main>
+
+<!-- Sell / Edit dialog -->
+<dialog id="sellDlg">
+  <form method="dialog" class="dlg" id="sellForm" onsubmit="saveItem(event)">
+    <h3 id="dlgTitle">List a new item</h3>
+    <div class="two">
+      <label>Title<input name="title" class="input" required placeholder="Quartz Drop Necklace"></label>
+      <label>Price (USD)<input name="price" class="input" type="number" min="0" step="0.01" required placeholder="49"></label>
+      <label>Category
+        <select name="category" class="select">
+          <option value="jewelry">Jewelry</option>
+          <option value="art">Art</option>
+        </select>
+      </label>
+      <label>Seller<input name="seller" class="input" required placeholder="Your shop name"></label>
+      <label class="full" style="grid-column:1/-1">Description<textarea name="description" rows="3" class="input" placeholder="Short description"></textarea></label>
+      <label class="full" style="grid-column:1/-1">Image URL<input name="image" class="input" placeholder="Paste an image URL"></label>
+      <label class="full" style="grid-column:1/-1">Buy URL (Stripe link)<input name="buy" class="input" placeholder="https://buy.stripe.com/..."></label>
+      <label class="full" style="grid-column:1/-1">Tags (comma separated)<input name="tags" class="input" placeholder="moonstone, boho, silver"></label>
+      <label>Featured?<select name="featured" class="select"><option value="true">Yes</option><option value="false">No</option></select></label>
+      <label>Status<select name="status" class="select"><option value="published">Published</option><option value="draft">Draft</option></select></label>
+    </div>
+    <div class="row" style="justify-content:flex-end; margin-top:10px">
+      <button class="btn ghost" value="cancel">Cancel</button>
+      <button class="btn">Save</button>
+    </div>
+    <input type="hidden" name="id">
+    <input type="hidden" name="mode">
+  </form>
+</dialog>
+
+<!-- Settings dialog -->
+<dialog id="settingsDlg">
+  <form method="dialog" class="dlg" onsubmit="saveSettings(event)">
+    <h3>Site Settings</h3>
+    <div class="two">
+      <label>Site title<input id="cfg_title" class="input"></label>
+      <label>Tagline<input id="cfg_tagline" class="input"></label>
+      <label class="full" style="grid-column:1/-1">Hero title<input id="cfg_herotitle" class="input"></label>
+      <label class="full" style="grid-column:1/-1">Hero subtitle<input id="cfg_herosub" class="input"></label>
+      <label class="full" style="grid-column:1/-1">Trust line<input id="cfg_trust" class="input"></label>
+      <label>Passcode<input id="cfg_pass" class="input" placeholder="weave"></label>
+    </div>
+    <div class="row" style="justify-content:flex-end; margin-top:10px">
+      <button class="btn ghost" value="cancel">Cancel</button>
+      <button class="btn">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Passcode dialog -->
+<dialog id="passDlg">
+  <form method="dialog" class="dlg" onsubmit="checkPass(event)">
+    <h3>Enter edit passcode</h3>
+    <input id="passInput" class="input" placeholder="passcode" autofocus>
+    <div class="row" style="justify-content:flex-end; margin-top:10px">
+      <button class="btn ghost" value="cancel">Cancel</button>
+      <button class="btn">Unlock</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Sticky bar -->
+<div class="bar">
+  <div class="wrap row" style="justify-content:center; gap:12px">
+    <a href="#shop" class="btn">Browse Featured</a>
+    <button class="btn secondary" onclick="openSell()">＋ Add item</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" style="display:none">Demo checkout complete ✅</div>
+
 <script>
-  const LS_PRODUCTS = 'dws_static_products_v1';
+  // ====== Data & helpers ======
+  const LS_KEY = 'dws_editor_products_v1';
+  const LS_CFG = 'dws_editor_config_v1';
+  const DEFAULT_PASS = 'weave';
+  const $ = (s, d=document)=>d.querySelector(s);
+
+  // Mock jewelry inventory (with a couple of demo buy links)
   const DEMO = [
-    {id:rid(), title:'Sunrise Spiral Earrings', price:48, category:'jewelry', seller:'Nova', image:'https://images.unsplash.com/photo-1617038260897-5bd46fd3a9ec?w=1200&q=80&auto=format&fit=crop', description:'Hand-hammered brass spirals kissed with dawn patina.', featured:true},
-    {id:rid(), title:'Seafoam Pendant', price:72, category:'jewelry', seller:'Ari', image:'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=1200&q=80&auto=format&fit=crop', description:'Recycled silver with beach-glass centerpiece.'},
-    {id:rid(), title:'Forest Whisper — Canvas Print', price:180, category:'art', seller:'Elemental Echo', image:'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80&auto=format&fit=crop', description:'A quiet path where light braids with mist.', featured:true}
+    {id:id(), title:'Moonstone Teardrop Pendant', price:68, category:'jewelry', seller:'Selene', image:'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=1200&q=80&auto=format&fit=crop', description:'Rainbow moonstone set in recycled silver.', buy:'', tags:['moonstone','silver','handmade'], featured:true, status:'published', created:Date.now()-9e6},
+    {id:id(), title:'Hammered Sun Cuff', price:54, category:'jewelry', seller:'Nova', image:'https://images.unsplash.com/photo-1603565834043-9105c73c47eb?w=1200&q=80&auto=format&fit=crop', description:'Warm brass cuff with sun glyphs.', buy:'https://example.com/checkout?item=sun-cuff', tags:['brass','cuff','sun'], featured:true, status:'published', created:Date.now()-8e6},
+    {id:id(), title:'Sea Glass Ring', price:74, category:'jewelry', seller:'Ari', image:'https://images.unsplash.com/photo-1617038260897-5bd46fd3a9ec?w=1200&q=80&auto=format&fit=crop', description:'Cobalt sea glass in sterling bezel.', buy:'', tags:['seaglass','sterling','ocean'], featured:false, status:'published', created:Date.now()-7e6},
+    {id:id(), title:'Crescent Hoop Earrings', price:46, category:'jewelry', seller:'Luna', image:'https://images.unsplash.com/photo-1612336307428-59b297739f1a?w=1200&q=80&auto=format&fit=crop', description:'Lightweight hoops with crescent charms.', buy:'https://example.com/checkout?item=crescent-hoops', tags:['hoops','crescent','minimal'], featured:true, status:'published', created:Date.now()-6e6},
+    {id:id(), title:'Verdant Leaf Necklace', price:59, category:'jewelry', seller:'Moss', image:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80&auto=format&fit=crop', description:'Leaf motif with patina finish.', buy:'', tags:['leaf','patina','green'], featured:false, status:'published', created:Date.now()-5e6},
+    {id:id(), title:'Quartz Point Choker', price:62, category:'jewelry', seller:'Echo', image:'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80&auto=format&fit=crop', description:'Raw quartz point on vegan cord.', buy:'', tags:['quartz','raw','boho'], featured:false, status:'published', created:Date.now()-4e6}
   ];
 
-  const get = (k,f)=>{ try{const v=localStorage.getItem(k); return v?JSON.parse(v):f }catch{ return f } }
-  const set = (k,v)=>{ try{localStorage.setItem(k, JSON.stringify(v))}catch{} }
-  const rid = ()=> Math.random().toString(36).slice(2);
-  const $ = sel => document.querySelector(sel);
-  const grid = $('#grid');
-  let products = get(LS_PRODUCTS, DEMO);
-  let cat = 'all';
+  const cfg = load(LS_CFG, {
+    title:'Dream Weavers Secrets',
+    tagline:'Nature-based, esoteric, handcrafted goods',
+    heroTitle:'Sell handcrafted pieces with ease',
+    heroSubtitle:'Upload photos, write a short description, and share your link. This demo saves data to your device only.',
+    trustLine:'Secure checkout by Stripe • Ships in 3–5 days • Easy returns',
+    pass: DEFAULT_PASS
+  });
+  let items = load(LS_KEY, DEMO);
+  let cat = 'all', edit = false;
 
-  function currency(n){ return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(n) }
+  function id(){ return Math.random().toString(36).slice(2) }
+  function money(n){ return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD'}).format(n) }
+  function load(k,f){ try{const v=localStorage.getItem(k); return v?JSON.parse(v):f }catch{ return f } }
+  function save(k,v){ try{localStorage.setItem(k, JSON.stringify(v))}catch{} }
+  const toast = (msg='Demo checkout complete ✅')=>{
+    const el = $('#toast'); el.textContent = msg; el.style.display='block'; setTimeout(()=> el.style.display='none', 1600);
+  };
+
+  // ====== UI init ======
+  $('#siteTitle').textContent = cfg.title;
+  $('#siteTagline').textContent = cfg.tagline;
+  $('#heroTitle').textContent = cfg.heroTitle;
+  $('#heroSubtitle').textContent = cfg.heroSubtitle;
+  $('#trustLine').textContent = cfg.trustLine;
+
+  $('#q').addEventListener('input', render);
+  $('#sort').addEventListener('change', render);
+
+  function setCat(c){ cat=c; render() }
+  window.setCat = setCat;
 
   function render(){
-    const term = ($('#q').value||'').toLowerCase();
+    const grid = $('#grid');
+    const q = ($('#q').value||'').toLowerCase();
     const sort = $('#sort').value;
-    let list = products.filter(p => cat==='all' ? true : p.category===cat);
-    if(term){ list = list.filter(p => (p.title+p.description+p.seller).toLowerCase().includes(term)); }
+
+    let list = items.filter(p =>
+      (p.status!=='draft') || edit
+    ).filter(p => cat==='all' ? true : p.category===cat);
+
+    if(q){
+      list = list.filter(p => (p.title+p.description+p.seller+(p.tags||[]).join(',')).toLowerCase().includes(q));
+    }
+
     switch(sort){
       case 'priceAsc': list.sort((a,b)=>a.price-b.price); break;
       case 'priceDesc': list.sort((a,b)=>b.price-a.price); break;
       case 'az': list.sort((a,b)=>a.title.localeCompare(b.title)); break;
+      case 'newest': list.sort((a,b)=> (b.created||0) - (a.created||0)); break;
       default: list.sort((a,b)=>(b.featured===true)-(a.featured===true));
     }
+
     grid.innerHTML = list.map(p => `
       <div class="card">
-        <img src="${p.image}" alt="${p.title}"/>
+        <img src="${p.image}" alt="${escapeHtml(p.title)}">
         <div class="p">
-          <div class="row">
-            <div class="price">${currency(p.price)}</div>
-            <span class="tag">${p.category}</span>
+          <div class="row" style="justify-content:space-between">
+            <div class="price">${money(p.price)}</div>
+            <span class="pill">${p.category}</span>
           </div>
-          <div class="title">${p.title}</div>
-          <div class="seller">by ${p.seller}</div>
-          <p class="note" style="margin:8px 0">${p.description||''}</p>
-          <div class="row">
-            <a class="btn" href="${p.buy||'#'}" target="_blank" rel="noopener">Buy</a>
-            <button class="select" onclick="removeItem('${p.id}')">Remove</button>
+          <div class="row" style="gap:8px; margin-top:4px; flex-wrap:wrap">
+            <div style="font-weight:600">${escapeHtml(p.title)}</div>
+            ${p.status==='draft' ? '<span class="tag draft">Draft</span>' : ''}
+            ${(p.tags||[]).slice(0,3).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}
+          </div>
+          <div class="meta">by ${escapeHtml(p.seller||'')}</div>
+          <p class="note" style="margin:8px 0">${escapeHtml(p.description||'')}</p>
+          <div class="actions">
+            ${p.buy
+              ? `<a class="btn" href="${p.buy}" target="_blank" rel="noopener">Buy now</a>`
+              : `<button class="btn" onclick="demoBuy('${p.id}')">Buy now</button>`}
+            ${edit ? `
+              <button class="btn ghost" onclick="openSell('${p.id}')">Edit</button>
+              <button class="btn ghost" onclick="move('${p.id}', -1)">↑</button>
+              <button class="btn ghost" onclick="move('${p.id}', 1)">↓</button>
+              <button class="btn ghost" onclick="dup('${p.id}')">Duplicate</button>
+              <button class="btn ghost" onclick="delItem('${p.id}')">Delete</button>
+            ` : ''}
           </div>
         </div>
       </div>
     `).join('');
   }
-
-  function setCat(c){ cat=c; render() }
-  $('#q').addEventListener('input', render);
-  $('#sort').addEventListener('change', render);
   render();
 
-  function openSell(){ $('#sell').style.display='flex' }
-  function closeSell(){ $('#sell').style.display='none' }
+  function demoBuy(id){
+    const p = items.find(x=>x.id===id);
+    toast(`Purchased ${p?.title || 'item'} — demo ✅`);
+  }
+  window.demoBuy = demoBuy;
 
-  $('#sellForm')?.addEventListener('submit', e => {
-    e.preventDefault();
-    const fd = new FormData(e.target);
-    const item = {
-      id: rid(),
-      title: fd.get('title'),
-      price: Number(fd.get('price')),
-      category: fd.get('category'),
-      seller: fd.get('seller'),
-      description: fd.get('description'),
-      image: fd.get('image') || 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80&auto=format&fit=crop',
-      buy: fd.get('buy')
-    };
-    products = [item, ...products];
-    set(LS_PRODUCTS, products);
-    render();
-    closeSell();
-    e.target.reset();
-  });
-
-  function removeItem(id){
-    products = products.filter(p => p.id !== id);
-    set(LS_PRODUCTS, products);
+  // ====== Edit mode & passcode ======
+  function toggleEdit(){
+    if(!edit){ $('#passDlg').showModal(); return; }
+    edit = false;
+    $('#editToggle').textContent = 'Edit';
+    $('#settingsBtn').classList.add('hidden');
     render();
   }
-</script>
-</body>
-</html>
+  window.toggleEdit = toggleEdit;
+
+  function checkPass(e){
+    e.preventDefault();
+    const v = $('#passInput').value.trim();
+    if(v === cfg.pass){
+      edit = true;
+      $('#editToggle').textContent = 'Editing';
+      $('#settingsBtn').classList.remove('hidden');
+      $('#passDlg').close();
+      render();
+    } else {
+      alert('Wrong passcode');
+    }
+  }
+  window.checkPass = checkPass;
+
+  // ====== Settings ======
+  function openSettings(){
+    $('#cfg_title').value = cfg.title;
+    $('#cfg_tagline').value = cfg.tagline;
+    $('#cfg_herotitle').value = cfg.heroTitle;
+    $('#cfg_herosub').value = cfg.heroSubtitle;
+    $('#cfg_trust').value = cfg.trustLine;
+    $('#cfg_pass').value = cfg.pass;
+    $('#settingsDlg').showModal();
+  }
+  window.openSettings = openSettings;
+
+  function saveSettings(e){
+    e.preventDefault();
+    cfg.title = $('#cfg_title').value || cfg.title;
+    cfg.tagline = $('#cfg_tagline').value || cfg.tagline;
+    cfg.heroTitle = $('#cfg_herotitle').value || cfg.heroTitle;
+    cfg.heroSubtitle = $('#cfg_herosub').value || cfg.heroSubtitle;
+    cfg.trustLine = $('#cfg_trust').value || cfg.trustLine;
+    cfg.pass = $('#cfg_pass').value || cfg.pass;
+    save(LS_CFG, cfg);
+    // reflect immediately
+    $('#siteTitle').textContent = cfg.title;
+    $('#siteTagline').textContent = cfg.tagline;
+    $('#heroTitle').textContent = cfg.heroTitle;
+    $('#heroSubtitle').textContent = cfg.heroSubtitle;
+    $('#trustLine').textContent = cfg.trustLine;
+    $('#settingsDlg').close();
+  }
+  window.saveSettings = saveSettings;
+
+  // ====== Sell / Edit item ======
+  function openSell(id){
+    const dlg = $('#sellDlg');
+    const f = $('#sellForm');
+    f.reset();
+    f.mode.value = id ? 'edit' : 'new';
+    $('#dlgTitle').textContent = id ? 'Edit item' : 'List a new item';
+
+    if(id){
+      const p = items.find(x=>x.id===id);
+      if(!p) return;
+      f.id.value = p.id;
+      f.title.value = p.title||'';
+      f.price.value = p.price||'';
+      f.category.value = p.category||'jewelry';
+      f.seller.value = p.seller||'';
+      f.description.value = p.description||'';
+      f.image.value = p.image||'';
+      f.buy.value = p.buy||'';
+      f.tags.value = (p.tags||[]).join(', ');
+      f.featured.value = String(!!p.featured);
+      f.status.value = p.status||'published';
+    } else {
+      f.featured.value = 'false';
+      f.status.value = 'published';
+    }
+    dlg.showModal();
+  }
+  function closeSell(){ $('#sellDlg').close() }
+  window.openSell = openSell;
+
+  function saveItem(e){
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const payload = {
+      id: fd.get('id') || id(),
+      title: fd.get('title')||'',
+      price: Number(fd.get('price')||0),
+      category: fd.get('category')||'jewelry',
+      seller: fd.get('seller')||'',
+      description: fd.get('description')||'',
+      image: fd.get('image') || 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&q=80&auto=format&fit=crop',
+      buy: fd.get('buy')||'',
+      tags: (fd.get('tags')||'').split(',').map(s=>s.trim()).filter(Boolean),
+      featured: fd.get('featured')==='true',
+      status: fd.get('status')||'published',
+      created: Date.now()
+    };
+    const mode = fd.get('mode');
+    if(mode==='edit'){
+      items = items.map(x=> x.id===payload.id ? {...x, ...payload} : x);
+    } else {
+      items = [payload, ...items];
+    }
+    save(LS_KEY, items);
+    closeSell();
+    render();
+  }
+  window.saveItem = saveItem;
+
+  function delItem(id){
+    if(!confirm('Delete this item?')) return;
+    items = items.filter(x=>x.id!==id);
+    save(LS_KEY, items);
+    render();
+  }
+  function dup(id){
+    const p = items.find(x=>x.id===id);
+    if(!p) return;
+    const c = {...p, id:id(), title:p.title+' (copy)', created:Date.now()};
+    items = [c, ...items];
+    save(LS_KEY, items); render();
+  }
+  function move(id, dir){
+    const i = items.findIndex(x=>x.id===id);
+    const j = i + dir;
+    
